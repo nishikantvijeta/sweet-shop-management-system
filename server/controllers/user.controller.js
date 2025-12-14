@@ -98,6 +98,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
   res.status(201).json({
     success: true,
     message: 'User registered successfully',
+    token,
     user,
   });
 });
@@ -140,6 +141,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     success: true,
     message: 'User logged in successfully',
     user,
+    token,
   });
 });
 
@@ -163,21 +165,32 @@ export const logoutUser = asyncHandler(async (_req, res, _next) => {
   });
 });
 
-/**
- * @LOGGED_IN_USER_DETAILS
- * @ROUTE @GET {{URL}}/api/v1/user/me
- * @ACCESS Private(Logged in users only)
- */
-export const getLoggedInUserDetails = asyncHandler(async (req, res, _next) => {
-  // Finding the user using the id from modified req object
+
+ export const getLoggedInUserDetails = asyncHandler(async (req, res, _next) => {
+  if (!req.user) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized - User not authenticated",
+    });
+  }
+
   const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User not found",
+    });
+  }
 
   res.status(200).json({
     success: true,
-    message: 'User details',
+    message: "User details",
     user,
+    token: req.token, // Add this if your middleware sets req.token
   });
 });
+
 
 /**
  * @FORGOT_PASSWORD

@@ -11,10 +11,12 @@ const Profile = () => {
   const userData = useSelector((state) => state?.auth?.data);
 
   // function to handle the cancel subscription of course
-  const handleCourseCancelSubscription = async () => {
-    await dispatch(cancelCourseBundle());
-    await dispatch(getUserData());
+  const handleCourseCancelSubscription = () => {
+    dispatch(cancelCourseBundle()).then(() => {
+      dispatch(getUserData());
+    });
   };
+  
 
   useEffect(() => {
     // getting user details
@@ -26,12 +28,12 @@ const Profile = () => {
         <div className="my-10 flex flex-col gap-4 rounded-lg p-4 text-white w-80 shadow-[0_0_10px_black]">
           <img
             className="w-40 m-auto rounded-full border border-black"
-            src={userData?.avatar?.secure_url}
+            src={userData?.avatar?.secure_url || "/default-avatar.jpg"}
             alt="user profile prieview"
           />
 
           <h3 className="text-xl font-semibold text-center capitalize">
-            {userData.fullName}
+            {userData?.fullName || "User"}
           </h3>
 
           <div className="grid grid-cols-2">
@@ -41,9 +43,11 @@ const Profile = () => {
             <p>{userData?.role}</p>
             <p>Subscription :</p>
             <p>
-              {userData?.subscription?.status === "active"
-                ? "Active"
-                : "Inactive"}
+              {userData?.subscription?.status
+    ? userData.subscription.status === "active"
+      ? "Active"
+      : "Inactive"
+    : "No Subscription"}
             </p>
           </div>
 

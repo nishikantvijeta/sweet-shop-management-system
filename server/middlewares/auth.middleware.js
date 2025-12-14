@@ -57,8 +57,9 @@ import AppError from "../utils/AppError.js";
 import asyncHandler from "./asyncHandler.middleware.js";
 
 export const isLoggedIn = asyncHandler(async (req, _res, next) => {
+  console.log("Cookies received:", req.cookies); // Log cookies to debug
   // Extracting token from cookies
-  const { token } = req.cookies;
+  const token  = req.cookies.token;
 
   if (!token) {
     return next(new AppError("Unauthorized, please login to continue", 401));
@@ -77,11 +78,12 @@ export const isLoggedIn = asyncHandler(async (req, _res, next) => {
     return next(new AppError("Invalid or expired token, please login again", 401));
   }
 });
-
+/**@param  {...string} roles 
+ */
 // Middleware to check if user is admin or not
 export const authorizeRoles = (...roles) =>
   asyncHandler(async (req, _res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!req.user||!roles.includes(req.user.role)) {
       return next(
         new AppError("You do not have permission to view this route", 403)
         

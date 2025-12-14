@@ -86,7 +86,11 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 // function to fetch user data
 export const getUserData = createAsyncThunk("/user/details", async () => {
   try {
-    const res = await axiosInstance.get("/user/me");
+    const res = await axiosInstance.get("/user/me", { 
+      withCredentials: true
+
+     });
+
     return res?.data;
   } catch (error) {
     toast.error(error.message);
