@@ -115,6 +115,7 @@ Create .env file like
   <img width="1702" height="829" alt="image" src="https://github.com/user-attachments/assets/12c527b5-f971-4ac4-b5ff-1cdfa489fc22" />
   <img width="595" height="617" alt="image" src="https://github.com/user-attachments/assets/5137ea88-f252-4c18-8aaa-46e2587d1e72" />
  <img width="600" height="634" alt="image" src="https://github.com/user-attachments/assets/9abbb348-6d37-4bda-a08b-ed1503ed5d2d" />
+<img width="704" height="778" alt="image" src="https://github.com/user-attachments/assets/5127229d-20b2-4e10-be6d-a8a3cb497a86" />
 
  # My AI Usage
 # AI Tools Used
@@ -144,6 +145,7 @@ Create .env file like
 - Assist with auto-completing syntax while implementing forms, reducers, and API integration.
 
 - Reduce development time by suggesting common patterns, which I then reviewed and adjusted as needed.
+
 
 
 
